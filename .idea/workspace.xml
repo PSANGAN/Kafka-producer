@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a6e6e7c-5ef2-4a3a-aaa4-37764a583088" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/product.service/src/main/java/com/pcgs/kafka/producer/product/service/config/KafkaConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product.service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product.service/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product.service/src/main/java/com/pcgs/kafka/producer/product/service/controller/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product.service/src/main/java/com/pcgs/kafka/producer/product/service/events/ProductCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product.service/src/main/java/com/pcgs/kafka/producer/product/service/model/CreateProductRestModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product.service/src/main/java/com/pcgs/kafka/producer/product/service/service/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product.service/src/main/java/com/pcgs/kafka/producer/product/service/service/ProductServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +19,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
