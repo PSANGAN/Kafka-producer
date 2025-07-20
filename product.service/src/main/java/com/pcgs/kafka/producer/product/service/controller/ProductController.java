@@ -1,5 +1,6 @@
 package com.pcgs.kafka.producer.product.service.controller;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.pcgs.kafka.producer.product.service.model.CreateProductRestModel;
 import com.pcgs.kafka.producer.product.service.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -15,11 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     ProductService productService;
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
     @PostMapping
     public ResponseEntity<Object> createProduct(@RequestBody CreateProductRestModel product) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("");
+        String productId;
+        try {
+            productId = productService.createProduct(product);
+        } catch (Exception e) {
+            //e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productId);
     }
 
 }
