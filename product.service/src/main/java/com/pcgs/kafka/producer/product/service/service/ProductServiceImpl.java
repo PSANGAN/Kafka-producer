@@ -33,25 +33,28 @@ public class ProductServiceImpl implements ProductService {
         LOGGER.info("Before publishing a ProductCreatedEvent");
 
 //        // Sync call
-//        SendResult<String, ProductCreatedEvent> result =
-//                kafkaTemplate.send("product-created-events-topic",productId, productCreatedEvent).get();
+        SendResult<String, ProductCreatedEvent> result =
+                kafkaTemplate.send("product-created-events-topic",productId, productCreatedEvent).get();
 
         //Async call
 
-        CompletableFuture<SendResult<String, ProductCreatedEvent>> future =
-                kafkaTemplate.send("product-created-events-topic",productId, productCreatedEvent);
+//        CompletableFuture<SendResult<String, ProductCreatedEvent>> future =
+//                kafkaTemplate.send("product-created-events-topic",productId, productCreatedEvent);
+//
+//        future.whenComplete((result1, exception) -> {
+//            if (exception != null) {
+//                LOGGER.error("Error in sending product created event", exception.getMessage());
+//            }else {
+//                LOGGER.info("Product created event sent successfully", result1.getRecordMetadata());
+//            }
+//        });
 
-        future.whenComplete((result1, exception) -> {
-            if (exception != null) {
-                LOGGER.error("Error in sending product created event", exception.getMessage());
-            }else {
-                LOGGER.info("Product created event sent successfully", result1.getRecordMetadata());
-            }
-        });
+        // Makes Asyc call as synchronous
+        // future.join();
 
-//        LOGGER.info("Partition: " + result.getRecordMetadata().partition());
-//        LOGGER.info("Topic: " + result.getRecordMetadata().topic());
-//        LOGGER.info("Offset: " + result.getRecordMetadata().offset());
+        LOGGER.info("Partition: " + result.getRecordMetadata().partition());
+        LOGGER.info("Topic: " + result.getRecordMetadata().topic());
+        LOGGER.info("Offset: " + result.getRecordMetadata().offset());
 
         LOGGER.info("***** Returning product id");
 
