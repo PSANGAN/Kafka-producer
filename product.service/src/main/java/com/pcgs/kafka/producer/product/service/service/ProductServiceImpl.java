@@ -2,6 +2,7 @@ package com.pcgs.kafka.producer.product.service.service;
 
 import com.pcgs.kafka.producer.product.service.events.ProductCreatedEvent;
 import com.pcgs.kafka.producer.product.service.model.CreateProductRestModel;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,19 @@ public class ProductServiceImpl implements ProductService {
 
         LOGGER.info("Before publishing a ProductCreatedEvent");
 
-//        // Sync call
+
+        ProducerRecord<String, ProductCreatedEvent> record = new ProducerRecord<>(
+                "product-created-events-topic",
+                productId,
+                productCreatedEvent);
+        record.headers().add("messageId", UUID.randomUUID().toString().getBytes());
+
         SendResult<String, ProductCreatedEvent> result =
-                kafkaTemplate.send("product-created-events-topic",productId, productCreatedEvent).get();
+                kafkaTemplate.send(record).get();
+
+//        // Sync call
+//        SendResult<String, ProductCreatedEvent> result =
+//                kafkaTemplate.send("product-created-events-topic",productId, productCreatedEvent).get();
 
         //Async call
 
